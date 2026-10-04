@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألعاب عبدالله — Almesned Games</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            color: #eef1ff;
+            background: radial-gradient(circle at 20% 10%, #1b1140 0%, #0a0718 45%, #05040c 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        .star {
+            position: absolute; background: #fff; border-radius: 50%;
+            animation: twinkle 2.6s ease-in-out infinite;
+        }
+        @keyframes twinkle { 0%,100% { opacity: .2; } 50% { opacity: 1; } }
+        .wrap { position: relative; z-index: 2; max-width: 1040px; margin: 0 auto; padding: 42px 18px 30px; }
+
+        header { text-align: center; margin-bottom: 34px; }
+        .logo-box {
+            display: inline-block; padding: 10px 34px; border-radius: 20px;
+            background: rgba(0,0,0,.5); border: 4px solid #fbd000;
+            box-shadow: 0 0 40px rgba(251,208,0,.28), inset 0 0 22px rgba(251,208,0,.1);
+        }
+        h1 {
+            font-size: 40px; font-weight: 900; letter-spacing: 2px;
+            color: #ff5a45; text-shadow: 3px 3px 0 #000, -2px -2px 0 #fbd000, 0 0 30px rgba(229,37,33,.45);
+        }
+        .sub { font-size: 15px; color: #fbd000; letter-spacing: 6px; margin-top: 2px; text-shadow: 1px 1px 0 #000; }
+        .tagline { margin-top: 16px; font-size: 17px; color: #b9c2e8; }
+        .tagline b { color: #fff; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+
+        .card {
+            position: relative; overflow: hidden; border-radius: 22px;
+            background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+            border: 2px solid rgba(255,255,255,.16);
+            box-shadow: 0 18px 45px rgba(0,0,0,.55);
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+            display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-8px); border-color: #fbd000; box-shadow: 0 26px 60px rgba(0,0,0,.7), 0 0 30px rgba(251,208,0,.25); }
+        .thumb { height: 168px; display: flex; align-items: center; justify-content: center; font-size: 74px; position: relative; }
+        .mario .thumb { background: linear-gradient(180deg, #5C94FC 0%, #87CEEB 55%, #3FB53F 88%, #2E8B2E 100%); }
+        .fighter .thumb { background: linear-gradient(180deg, #16122e 0%, #2d1b69 45%, #0f2f1e 100%); }
+        .thumb .icon { filter: drop-shadow(0 6px 10px rgba(0,0,0,.5)); animation: bob 2.4s ease-in-out infinite; }
+        @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-9px);} }
+        .badge {
+            position: absolute; top: 12px; right: 12px; font-size: 12px; font-weight: 700;
+            background: rgba(0,0,0,.7); color: #fbd000; border: 1px solid rgba(251,208,0,.55);
+            padding: 4px 12px; border-radius: 20px;
+        }
+        .body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .body h2 { font-size: 24px; font-weight: 900; color: #fff; }
+        .body p { font-size: 14.5px; line-height: 1.9; color: #c3caee; flex: 1; }
+        .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+        .tags span {
+            font-size: 11.5px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16);
+            padding: 3px 10px; border-radius: 14px; color: #dfe4ff;
+        }
+        .btns { display: flex; gap: 10px; margin-top: 6px; }
+        .btn {
+            flex: 1; text-align: center; text-decoration: none; padding: 11px 12px; border-radius: 30px;
+            font-weight: 700; font-size: 15.5px; transition: all .2s;
+        }
+        .play { background: linear-gradient(180deg,#e52521,#b71c1c); color: #fff; border: 2px solid #fbd000; box-shadow: 0 5px 18px rgba(229,37,33,.45); }
+        .play:hover { transform: scale(1.04); background: linear-gradient(180deg,#ff3333,#e52521); }
+        .src { background: rgba(255,255,255,.08); color: #dfe4ff; border: 2px solid rgba(255,255,255,.22); }
+        .src:hover { border-color: #8ab4ff; color: #fff; }
+
+        .about {
+            margin-top: 30px; padding: 20px 24px; border-radius: 20px; text-align: center;
+            background: linear-gradient(135deg, rgba(251,208,0,.18), rgba(229,37,33,.18));
+            border: 2px solid rgba(251,208,0,.5);
+        }
+        .about .name { font-size: 25px; font-weight: 900; color: #fbd000; text-shadow: 1px 1px 0 #000; }
+        .about .school { font-size: 14.5px; color: #9fd6ff; margin-top: 5px; }
+        .about .links { margin-top: 12px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .about a { color: #fff; font-size: 13.5px; text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,.5); }
+        .about a:hover { color: #fbd000; }
+
+        footer { text-align: center; margin-top: 26px; font-size: 13px; color: #7d86b5; }
+        @media (max-width: 560px) {
+            h1 { font-size: 30px; }
+            .thumb { font-size: 60px; height: 140px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="wrap">
+        <header>
+            <div class="logo-box">
+                <h1>🎮 ألعاب عبدالله</h1>
+                <div class="sub">ALMESNED GAMES</div>
+            </div>
+            <p class="tagline">ألعاب ويب جاهزة للعب من المتصفح مباشرة — <b>ملف واحد</b> لكل لعبة، بدون تثبيت.</p>
+        </header>
+
+        <div class="grid">
+            <article class="card mario">
+                <div class="thumb">
+                    <span class="badge">HTML5 · 5 مراحل</span>
+                    <span class="icon">🍄</span>
+                </div>
+                <div class="body">
+                    <h2>سوبر ماريو</h2>
+                    <p>لعبة منصات كلاسيكية كاملة: 5 مراحل (سهول، كهوف، سماء، قلعة، باوزر)، شخصيتان ماريو ولويجي، فطر وزهرة ونجمة، كرات نار، أصوات وموسيقى مولّدة، وتحكم باللمس على الموبايل.</p>
+                    <div class="tags"><span>5 مراحل</span><span>ماريو / لويجي</span><span>موسيقى</span><span>لمس</span></div>
+                    <div class="btns">
+                        <a class="btn play" href="https://almesned.github.io/abdullah-mario/" target="_blank" rel="noopener">▶ العب الآن</a>
+                        <a class="btn src" href="https://github.com/almesned/abdullah-mario" target="_blank" rel="noopener">الكود</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card fighter">
+                <div class="thumb">
+                    <span class="badge">قتال · فردي وثنائي</span>
+                    <span class="icon">⚔️</span>
+                </div>
+                <div class="body">
+                    <h2>قتال المنصات</h2>
+                    <p>لعبة قتال على منصات بست خرائط (قلعة الرمال، صحراء، جليد، مصنع، غابة، فضاء)، 3 جولات، أسلحة تسقط من السماء، ذكاء اصطناعي بأربع صعوبات، طور الزومبي بموجات لا نهائية، وملء الشاشة.</p>
+                    <div class="tags"><span>6 خرائط</span><span>طور الزومبي</span><span>لاعبان</span><span>4 صعوبات</span></div>
+                    <div class="btns">
+                        <a class="btn play" href="https://almesned.github.io/platform-fighter/" target="_blank" rel="noopener">▶ العب الآن</a>
+                        <a class="btn src" href="https://github.com/almesned/platform-fighter" target="_blank" rel="noopener">الكود</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <section class="about">
+            <div class="name">⭐ المصمم: عبدالله عمر المسند</div>
+            <div class="school">🏫 مدرسة الرواد الثانوية الأهليّة — الصف الأول الثانوي موهبة</div>
+            <div class="links">
+                <a href="https://github.com/almesned" target="_blank" rel="noopener">حساب GitHub</a>
+                <a href="https://github.com/almesned/almesned.github.io" target="_blank" rel="noopener">كود هذه الصفحة</a>
+            </div>
+        </section>
+
+        <footer>© 2026 عبدالله عمر المسند — كل الألعاب مبنية بـ HTML5 و Canvas و JavaScript فقط.</footer>
+    </div>
+
+    <script>
+        const box = document.getElementById('stars');
+        for (let i = 0; i < 90; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            const size = 2 + Math.random() * 3;
+            s.style.width = size + 'px'; s.style.height = size + 'px';
+            s.style.animationDelay = (Math.random() * 3) + 's';
+            s.style.animationDuration = (1.6 + Math.random() * 2.4) + 's';
+            box.appendChild(s);
+        }
+    </script>
+</body>
+</html>
